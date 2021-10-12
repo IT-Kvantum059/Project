@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="startGame()">
+    <div class="butons">
+        <button onmousedown="moveup()" onmouseup="stopMove()" ontouchstart="moveup()">UP</button>
+        <button onmousedown="movedown()" onmouseup="stopMove()" ontouchstart="movedown()">DOWN</button>
+        <button onmousedown="moveleft()" onmouseup="stopMove()" ontouchstart="moveleft()">LEFT</button>
+        <button onmousedown="moveright()" onmouseup="stopMove()" ontouchstart="moveright()">RIGHT</button>
+    </div>
+    <canvas id="canvas" width="150" height="150"></canvas>
+    <script type="application/javascript" src="app.js"></script>
+</body>
+</html>
