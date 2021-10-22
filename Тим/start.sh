@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cd ./project && ./manage.py runserver 0.0.0.0:8000
+cd ./project && ./manage.py runserver 00:8000
