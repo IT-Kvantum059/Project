@@ -13,14 +13,15 @@ let speed = 100;
 
 let score = 0;
 
-let food = {
-	x: Math.floor((Math.random() * 17 + 1)) * box,
-	y: Math.floor((Math.random() * 15 + 3)) * box,
-}; 
 let snake = [];
 snake[0] = {
 	x: 9 * box,
 	y: 10 * box
+};
+
+let food = {
+	x: Math.floor((Math.random() * 17 + 1)) * box,
+	y: Math.floor((Math.random() * 15 + 3)) * box,
 };
 
 document.addEventListener("keydown", direction);
@@ -49,12 +50,17 @@ function eatTail(head, arr) {
 			snake[0].x = 9 * box;
 			snake[0].y = 10 * box;
 			dir = "up";
+			food = {
+			x: Math.floor((Math.random() * 17 + 1)) * box,
+			y: Math.floor((Math.random() * 15 + 3)) * box,
+		};
 			return;			
 		}
 	}
 }
 
 function drawGame() {
+	console.log(snake[0].x, snake[0].y)
 	ctx.drawImage(ground, 0, 0);
 
 	ctx.drawImage(foodImg, food.x, food.y);
@@ -73,11 +79,23 @@ function drawGame() {
 
 	if(snakeX == food.x && snakeY == food.y) {
 		score++;
-		speed -= 10;
-		food = {
-			x: Math.floor((Math.random() * 17 + 1)) * box,
-			y: Math.floor((Math.random() * 15 + 3)) * box,			
-		};
+
+		while ((snake[0].x) == food.x && (snake[0].x == food.x)) {
+			food = {
+						x: Math.floor((Math.random() * 17 + 1)) * box,
+						y: Math.floor((Math.random() * 15 + 3)) * box,
+				}; 
+		}
+
+		for(let i; i < snake.length; i++){
+
+			while ((snake[i].x) == food.x && (snake[i].x == food.x)) {
+				food = {
+					x: snake[snake.length-1].x,//Math.floor((Math.random() * 17 + 1)) * box,
+					y: snake[snake.length-1].y,//Math.floor((Math.random() * 15 + 3)) * box,
+				}; 
+			}
+		}
 	} else
 		snake.pop();
 
@@ -89,7 +107,7 @@ function drawGame() {
 			snake.splice(1);
 			snake[0].x = 9 * box;
 			snake[0].y = 10 * box;
-			dir = "up";
+			dir = "up";			
 			return;
 		}		
 
