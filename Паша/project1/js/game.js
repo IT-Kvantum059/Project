@@ -28,6 +28,19 @@ document.addEventListener("keydown", direction);
 
 let dir;
 
+function death()
+{	
+	console.log("1", snake.length);
+	alert("Игра окончена!");
+	score = 0;
+	//snake.splice(1);
+	snake[0].x = 9 * box;
+	snake[0].y = 10 * box;
+	dir = "up";
+
+	return;
+}
+
 function direction(event) {
 	if(event.keyCode == 37 && dir != "right")
 		dir = "left";
@@ -43,24 +56,14 @@ function eatTail(head, arr) {
 	for(let i = 0; i < arr.length; i++) {
 		if(head.x == arr[i].x && head.y == arr[i].y)
 		{
-
-			alert("Игра окончена!");
-			score = 0;
-			snake.splice(1);
-			snake[0].x = 9 * box;
-			snake[0].y = 10 * box;
-			dir = "up";
-			food = {
-			x: Math.floor((Math.random() * 17 + 1)) * box,
-			y: Math.floor((Math.random() * 15 + 3)) * box,
-		};
+			death();
+			
 			return;			
 		}
 	}
 }
 
-function drawGame() {
-	console.log(snake[0].x, snake[0].y)
+function drawGame() {	
 	ctx.drawImage(ground, 0, 0);
 
 	ctx.drawImage(foodImg, food.x, food.y);
@@ -80,34 +83,21 @@ function drawGame() {
 	if(snakeX == food.x && snakeY == food.y) {
 		score++;
 
-		while ((snake[0].x) == food.x && (snake[0].x == food.x)) {
-			food = {
-						x: Math.floor((Math.random() * 17 + 1)) * box,
-						y: Math.floor((Math.random() * 15 + 3)) * box,
-				}; 
-		}
-
-		for(let i; i < snake.length; i++){
-
-			while ((snake[i].x) == food.x && (snake[i].x == food.x)) {
-				food = {
-					x: snake[snake.length-1].x,//Math.floor((Math.random() * 17 + 1)) * box,
-					y: snake[snake.length-1].y,//Math.floor((Math.random() * 15 + 3)) * box,
-				}; 
-			}
-		}
+		food = 
+		{
+			x: Math.floor((Math.random() * 17 + 1)) * box,
+			y: Math.floor((Math.random() * 15 + 3)) * box,
+		};
 	} else
 		snake.pop();
 
 	if(snakeX < box || snakeX > box * 17
 		|| snakeY < 3 * box || snakeY > box * 17)
 		{
-			alert("Игра окончена!");
-			score = 0;
-			snake.splice(1);
-			snake[0].x = 9 * box;
-			snake[0].y = 10 * box;
-			dir = "up";			
+			death();
+
+			console.log("2", snake.length);
+
 			return;
 		}		
 
