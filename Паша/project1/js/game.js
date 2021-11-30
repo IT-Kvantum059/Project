@@ -33,9 +33,11 @@ function death()
 	console.log("1", snake.length);
 	alert("Игра окончена!");
 	score = 0;
-	//snake.splice(1);
-	snake[0].x = 9 * box;
-	snake[0].y = 10 * box;
+	snake.splice(0);
+	snake[0] = {
+		x: 9 * box,
+		y: 10 * box
+	};
 	dir = "up";
 
 	return;
@@ -64,6 +66,7 @@ function eatTail(head, arr) {
 }
 
 function drawGame() {	
+
 	ctx.drawImage(ground, 0, 0);
 
 	ctx.drawImage(foodImg, food.x, food.y);
@@ -81,13 +84,19 @@ function drawGame() {
 	let snakeY = snake[0].y;
 
 	if(snakeX == food.x && snakeY == food.y) {
-		score++;
+		score++;		
 
-		food = 
+		for (var i = 0; i < snake.length; i++)
 		{
-			x: Math.floor((Math.random() * 17 + 1)) * box,
-			y: Math.floor((Math.random() * 15 + 3)) * box,
-		};
+			while (snake[i].x == food.x && snake[i].y == food.y)
+			{
+				food = 
+				{
+					x: Math.floor((Math.random() * 17 + 1)) * box,
+					y: Math.floor((Math.random() * 15 + 3)) * box,
+				};
+			}
+		}				
 	} else
 		snake.pop();
 
