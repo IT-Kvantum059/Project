@@ -1,0 +1,51 @@
+import numpy as np
+import cv2 as cv2
+EXAMPLE="/home/sophia/Изображения/Vlevo.png"
+from matplotlib import pyplot as plt
+
+def imf(frame, example=EXAMPLE):#функция сравнения кадра из видео с эталоном
+	imageExample = cv2.imread(example,0)#
+	resized1= cv2.resize(frame, (8,8), interpolation = cv2.INTER_AREA) #Уменьшим картинку,INTER_AREA это передискретизации с использованием отношения площади пикселя, понятия не имею что это, но оно работае
+
+	resized = cv2.resize(imageExample, (8,8), interpolation = cv2.INTER_AREA) #Уменьшим картинку,INTER_AREA это передискретизации с использованием отношения площади пикселя, понятия не имею что это, но оно работае
+
+	avg=resized.mean()#функция mean ищет среднее арифметическое масива изображения
+	avg1=resized1.mean()
+	s,threshold_image=cv2.threshold(resized,avg,255, 0)#Функция threshold возвращает изображение, в котором все пиксели, которые темнее 127 заменены на 0, а все, которые ярче 127, — на 255
+
+	d,threshold_frame=cv2.threshold(resized1,avg1,255, 0)#Функция threshold возвращает изображение, в котором все пиксели, которые темнее 127 заменены на 0, а все, которые ярче 127, — на 255
+	similar_coeff = np.sum((threshold_frame-threshold_image)**2)
+	
+	return similar_coeff
+
+
+	#print(imf("/home/sophia/Изображения/IMG-1544.jpg"))#кадры из видео
+
+def get_roi(path, roi): # Фнукция для вывода определенной части изображения
+	
+	img = cv2.imread(path, 0) 
+	# print(img.shape)
+	return img[roi[0][0]:roi[0][1], roi[1][0]:roi[1][1]]
+
+
+if __name__ == "__main__": #Если запустить файл, то код будет читаться отсюда
+
+	
+	#1 - путь, а второе значение координат области изображения	
+	loli = get_roi("/home/sophia/Изображения/Vlevo.png", [(20,30), (40,60)]) 
+	c = imf(loli)
+	print (c)
+	
+	cap = cv2.VideoCapture(0)
+	while cap.isOpened():
+	    ret, img = cap.read()
+	    cv2.imshow('output', img)
+
+	    key = cv2.waitKey(10)
+	    if key == 27:
+	        break
+
+	cap.release()
+	cv2.destroyAllWindows()
+
+
