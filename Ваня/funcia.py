@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 from animal import imf
-from multiproccesing import Process, Queue
+from multiprocessing import Process, Queue
 #try:
 
 #except Traceback:
