@@ -27,5 +27,7 @@ def output_commands(request):
     cmd = {
         'cmd': os.environ.pop('CMD') # read line with cmd
     }
+    with open('cmd.json', 'r', encoding='utf-8') as f:
+        json.load({'cmd': cmd}, f)
 
     return JsonResponse(cmd)
